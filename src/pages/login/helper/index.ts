@@ -1,9 +1,12 @@
 import { isValidEmail } from '@brazilian-utils/brazilian-utils';
 
-export async function tryToLogin({history ,loginFormData ,setError, setStage}:ILoginFetch) {
+export async function tryToLogin({
+    history, 
+    loginFormData, 
+    setError, 
+    setStage
+}:ILoginFetch) {
     try {
-        let header = new Headers();
-        header.append("Content-Type", "application/json");
         const response: Users[] = await fetch("http://localhost:8000/users").then(
             res => res.json()
         );
@@ -33,5 +36,53 @@ export async function tryToLogin({history ,loginFormData ,setError, setStage}:IL
     } catch (e) {
         setError({code: 1, message: "Erro ao enviar mensagem, tente novamente."});
         setStage(0);
+    }
+}
+
+export async function tryToSignUp({
+    history, 
+    loginFormData, 
+    setError, 
+    setStage
+}: ILoginFetch) {
+    try {
+        const response: Users[] = await fetch("http://localhost:8000/users").then(
+            res => res.json()
+        );
+        const user = response.filter(user => 
+            user.email === loginFormData.singUpEmail
+        );
+        if (
+            loginFormData.singUpEmail === "" ||
+            loginFormData.singUpName === "" ||
+            loginFormData.signUpPassword === ""
+        ) {
+            setError({code: 2, message: "Forneça e-mail, nome e senha."});
+            setStage(1);
+        } else if (!isValidEmail(loginFormData.singUpEmail)) {
+            setError({code: 3, message: "Forneça um e-mail válido."});
+            setStage(1);
+        } else if (user.length !== 0) {
+            setError({code: 4, message: "E-mail já cadastrado na plataforma."});
+            setStage(1);
+        } else {
+            let header = new Headers();
+            header.append("Content-Type", "application/json");
+            let postBody = {
+                name: loginFormData.singUpName,
+                email: loginFormData.singUpEmail,
+                password: loginFormData.signUpPassword,
+                favorites: []
+            }
+            await fetch("http://localhost:8000/users", {
+                method: "POST",
+                headers: header,
+                body: JSON.stringify(postBody),
+            });
+            history.push('/dashboard');
+        }
+    } catch (e) {
+        setError({code: 1, message: e.message});
+        setStage(1);
     }
 }

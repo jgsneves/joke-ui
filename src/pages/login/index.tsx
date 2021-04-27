@@ -5,7 +5,7 @@ import {FiAlertTriangle} from 'react-icons/fi';
 import {ErrorMessage, LoginForm, SignUpForm, Wrapper} from './styles';
 import { Spinner } from '../../components/spinner';
 import { useHistory } from 'react-router';
-import { tryToLogin } from './helper';
+import { tryToLogin, tryToSignUp } from './helper';
 
 
 export const Login = () => {
@@ -38,9 +38,12 @@ export const Login = () => {
 
     function signUpSubmit(e: FormEvent) {
         e.preventDefault();
+        setStage(2);
+        tryToSignUp({history, loginFormData, setError, setStage});
     }
 
     function handleSignUpButtonPress() {
+        setError({code: 0, message: "Sem erros"});
         setStage(1);
     }
 
