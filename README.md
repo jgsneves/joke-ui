@@ -1,5 +1,5 @@
 <h1 align=center>
-<img src="https://raw.githubusercontent.com/jgsneves/rocketseatNWL/master/ecoleta_main_image2.png" />
+<img src="https://drive.google.com/file/d/1w_F-SHL9aDRtoQ1UtxDLSi77a_JCtyHS/view?usp=sharing" />
 </h1>
 
 <h3 align="center">
