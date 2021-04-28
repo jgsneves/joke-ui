@@ -44,3 +44,15 @@ interface ILoginFetch {
     setError: React.Dispatch<React.SetStateAction<IErrorMessage>>;
     setStage: React.Dispatch<React.SetStateAction<number>>;
 }
+
+interface IGetJodByCategory {
+    category: string;
+    setJoke: React.Dispatch<React.SetStateAction<Ijoke>>;
+}
+
+interface ICategories {
+    name: string;
+    description: string;
+    language: string;
+    background: string;
+}

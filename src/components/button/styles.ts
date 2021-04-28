@@ -2,16 +2,19 @@ import styled from 'styled-components';
 
 interface IProps {
     theme: "primary" | "secondary" | "danger";
+    selected: boolean | undefined;
 }
 
 export const ButtonWrapper = styled.button<IProps>`
     background-color: ${props => {
         if (props.theme === "primary") {
             return "#6071F7";
-        } else if (props.theme === "secondary") {
-            return "transparent"
         } else if (props.theme === "danger") {
             return "#ED4433";
+        } else if (props.selected && props.theme === "secondary") {
+            return "#000"
+        } else if (props.theme === "secondary") {
+            return "transparent"
         }
     }};
     width: fit-content;
@@ -28,7 +31,15 @@ export const ButtonWrapper = styled.button<IProps>`
             return "2px solid #ED4433"
         }
     }};
-    color: ${props => props.theme === "secondary" ? "#000" : "#FFF"};
+    color: ${props => {
+        if (props.selected) {
+            return "#FFFFFF"
+        } else if (props.theme === "secondary") {
+            return "#000"
+        } else if (props.theme === "primary") {
+            return "#FFF"
+        }
+    }};
     padding: 8px 16px;
     font-style: bold;
     &:hover {
