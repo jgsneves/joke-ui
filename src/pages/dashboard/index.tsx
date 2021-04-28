@@ -34,7 +34,7 @@ export const Dashboard = () => {
     console.log(joke);
     return (
         <Wrapper>
-            <h1>Bem vindo!</h1>
+            <h1>Bem vindo, {localStorage.getItem("joke-ui: username")?.replaceAll(`"`, "")}!</h1>
             <p>Desfrute da piada do dia!</p>
             <Joke 
                 background={joke.background}

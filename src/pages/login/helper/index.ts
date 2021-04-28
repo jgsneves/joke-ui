@@ -28,6 +28,9 @@ export async function tryToLogin({
             setError({code: 4, message: "E-mail ou senha não encontrados"});
             setStage(0);
         } else {
+            localStorage.setItem("@joke-ui: user_id", JSON.stringify(user[0].id));
+            localStorage.setItem("@joke-ui: username", JSON.stringify(user[0].name));
+            localStorage.setItem("@joke-ui: user_body", JSON.stringify(user[0]));
             history.push('/dashboard');
         }
        
@@ -74,11 +77,12 @@ export async function tryToSignUp({
                 password: loginFormData.signUpPassword,
                 favorites: []
             }
-            await fetch("http://localhost:8000/users", {
+            const response: Users = await fetch("http://localhost:8000/users", {
                 method: "POST",
                 headers: header,
                 body: JSON.stringify(postBody),
-            });
+            }).then(res => res.json());
+            localStorage.setItem("@joke-ui: user_id", JSON.stringify(response.id));
             history.push('/dashboard');
         }
     } catch (e) {

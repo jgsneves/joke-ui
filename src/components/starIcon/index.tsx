@@ -1,16 +1,21 @@
 import React from "react";
+import { removeFavJoke } from "../../pages/favorites/helper";
 
-interface IProps {
-  favorited?: boolean;
+interface IProps extends React.HTMLProps<HTMLButtonElement> {
+  favorited: boolean;
+  jokeId: string;
 }
 
-export const StarIcon = ({ favorited }: IProps) => {
+export const StarIcon = ({ favorited, jokeId }: IProps) => {
   const [coloredStar, setColoredStar] = React.useState(favorited);
 
   return (
     <button
       type="button"
-      onClick={() => setColoredStar(!coloredStar)}
+      onClick={() => {
+        setColoredStar(!coloredStar);
+        removeFavJoke(jokeId);
+      }}
       style={{
         background: "transparent",
         border: 0,

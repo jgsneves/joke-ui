@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const Wrapper = styled.main`
     width: fit-content;
     margin: 0 auto;
+    padding-bottom: 20px;
     & > h1 {
-        margin-top: 32px;
+        margin: 32px 0;
     }
 
     & > p {
