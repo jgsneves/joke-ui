@@ -24,6 +24,10 @@ interface Ijoke {
     favorited?: boolean;
 }
 
+interface IJokeProps extends Ijoke {
+    onRemoveJoke?: (e: string) => void;
+}
+
 interface ILoginForm {
     loginEmail: string;
     loginPassword: string;
@@ -55,4 +59,21 @@ interface ICategories {
     description: string;
     language: string;
     background: string;
+}
+
+interface IAddNewJokeToFavs {
+    category: string;
+    title: string;
+    description: string;
+    background: string;
+    date: string;
+    joke: {
+        title: string;
+        length: string;
+        clean: string;
+        racial: string;
+        date: string;
+        id: string;
+        text: string;
+    }
 }

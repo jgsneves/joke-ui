@@ -31,6 +31,7 @@ export async function tryToLogin({
             localStorage.setItem("@joke-ui: user_id", JSON.stringify(user[0].id));
             localStorage.setItem("@joke-ui: username", JSON.stringify(user[0].name));
             localStorage.setItem("@joke-ui: user_body", JSON.stringify(user[0]));
+            localStorage.setItem("@joke-ui: favs_jokes", JSON.stringify(user[0].favorites));
             history.push('/dashboard');
         }
        

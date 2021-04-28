@@ -1,19 +1,25 @@
 import React from 'react';
-import { getAllFavJokes } from '../../pages/favorites/helper';
+import { addNewJokeToFavs } from '../../pages/favorites/helper';
 import { StarIcon } from '../starIcon';
 import {Wrapper, JokeHeader, JokeMain} from './styles';
 
-export const Joke = ({joke, date, description}: Ijoke) => {
-    const [favoritedJokes, setFavoritedJoke] = React.useState<Ijoke[] | undefined>([]);
-    React.useEffect(() => {
-        getAllFavJokes().then(res => setFavoritedJoke(res));
-    }, []);
-
-    const indexOfMatchedJoke = favoritedJokes!.findIndex(item => item.joke.id === joke.id);
+export const Joke = ({
+    joke, 
+    date, 
+    description, 
+    background, 
+    category,
+    title,
+    favorited,
+    onRemoveJoke
+}: IJokeProps) => {
+    
     const questionSlicer = joke.text.indexOf("\r");
     const question = joke.text.slice(2, questionSlicer);
+
     const answerSlicer = joke.text.indexOf("\n") + 1;
     const answer = joke.text.slice(answerSlicer, -1).replace("A.", "");
+
     return (
         <Wrapper>
             <JokeHeader>
@@ -21,8 +27,13 @@ export const Joke = ({joke, date, description}: Ijoke) => {
                 <p>{description}</p>
                 <h3>{date}</h3>
                 <StarIcon 
-                    favorited={indexOfMatchedJoke === -1 ? true : false}
-                    jokeId={joke.id}    
+                    favorited={favorited}
+                    setFavorite={() => addNewJokeToFavs({description, date, joke, background, category, title})}
+                    removeFavorite={() => {
+                        if (onRemoveJoke) {
+                            onRemoveJoke(joke.id);
+                        }
+                    }}
                 />
             </JokeHeader>
             <JokeMain>
