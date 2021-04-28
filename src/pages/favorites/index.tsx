@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button } from '../../components/button';
 import { Joke } from '../../components/joke';
 import { getAllFavJokes } from './helper';
@@ -7,14 +7,22 @@ import { getAllFavJokes } from './helper';
 import {Wrapper} from './styles';
 
 export const Favorites = () => {
+    const history = useHistory();
+    const userId = localStorage.getItem("@joke-ui: user_id");
+    if (!userId) {
+        history.push('/');
+    }
+
     const [jokes, setJokes] = React.useState<Ijoke[]>([]);
+
     React.useEffect(() => {
         getAllFavJokes().then(res => {
             if (res) {
                 setJokes(res);
             }
         });
-    },[jokes]);
+    },[]);
+    //array de dependência [jokes] tá entrando em loop eterno
 
     return (
         <Wrapper>

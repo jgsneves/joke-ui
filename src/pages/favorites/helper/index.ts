@@ -6,7 +6,6 @@ export async function getAllFavJokes() {
         localStorage.setItem("@joke-ui: favs_jokes", JSON.stringify(response.favorites));
         return response.favorites;
     } catch(e) {
-        console.log(e);
     }
 }
 
@@ -21,17 +20,17 @@ export async function removeFavJoke(jokeId: string) {
         id: userId,
         name: userBody.name,
         email: userBody.email,
+        password: userBody.password,
         favorites: newArray
     }
     try {
         let header = new Headers();
         header.append("Content-Type", "application/json");
-        const response = await fetch(`http://localhost:8000/users/${userId}`, {
+        await fetch(`http://localhost:8000/users/${userId}`, {
             method: "PUT",
             headers: header,
             body: JSON.stringify(rawPutBody),
         });
-        console.log(response);
     } catch(e) {
         console.log(e);
     }

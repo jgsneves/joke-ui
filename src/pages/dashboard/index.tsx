@@ -1,11 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button } from '../../components/button';
 import { Joke } from '../../components/joke';
 
 import {Wrapper} from './styles';
 
 export const Dashboard = () => {
+    const history = useHistory();
+    const userId = localStorage.getItem("@joke-ui: user_id");
+    if (!userId) {
+        history.push('/');
+    }
+
     const [joke, setJoke] = React.useState<Ijoke>({
         category: "",
         title: "",
@@ -31,7 +37,6 @@ export const Dashboard = () => {
         setJoke(response.favorites[0]);
     }
 
-    console.log(joke);
     return (
         <Wrapper>
             <h1>Bem vindo, {localStorage.getItem("joke-ui: username")?.replaceAll(`"`, "")}!</h1>

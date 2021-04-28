@@ -27,7 +27,6 @@ export const Login = () => {
     function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
         const {id, value} = e.target;
         setLoginFormData({...loginFormData, [id]: value});
-        console.log(loginFormData);
     }
     
     function loginSubmit(e: FormEvent) {
